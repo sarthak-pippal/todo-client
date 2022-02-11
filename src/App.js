@@ -15,7 +15,7 @@ function App() {
 
 useEffect(()=>{
   console.log("useeffect called")
-  Axios.get("http://localhost:8080/getTasks").then((response)=>{
+  Axios.get("https://sarthakpippaltodoapp.herokuapp.com/getTasks").then((response)=>{
   console.log("useEffect",response)  
   setTaskList(response.data)
   //setGroupList(response.data)
@@ -35,7 +35,7 @@ useEffect(()=>{
 
   const submitTask = () => {
     //console.log("tee")
-    Axios.post("http://localhost:8080/tasks",{
+    Axios.post("https://sarthakpippaltodoapp.herokuapp.com/tasks",{
       
       description : description,
       completed : completed,
@@ -65,7 +65,7 @@ useEffect(()=>{
 
   const updateTask = (id) => {
     console.log(id)
-    Axios.put("http://localhost:8080/updateTasks",{
+    Axios.put("https://sarthakpippaltodoapp.herokuapp.com/updateTasks",{
       id: id,
       newDescription : newDescription,
       newCompleted : newCompleted,
@@ -80,7 +80,7 @@ useEffect(()=>{
 
   const deleteTask = (id) => {
     console.log("tee")
-    Axios.put('http://localhost:8080/deleteTasks',{
+    Axios.put('https://sarthakpippaltodoapp.herokuapp.com/deleteTasks',{
       id:id
     });    
   };
@@ -88,14 +88,14 @@ useEffect(()=>{
   const urgentTask = (id) => {
     console.log("urgent calledd")
     //console.log(id)
-    Axios.post('http://localhost:8080/createGroup2',{
+    Axios.post('https://sarthakpippaltodoapp.herokuapp.com/createGroup2',{
       id:id  
     }); 
   };
 
   const deleteGroup2 = () => {
     console.log("tee")
-    Axios.put('http://localhost:8080/deleteGroup2',{
+    Axios.put('https://sarthakpippaltodoapp.herokuapp.com/deleteGroup2',{
       
     });  
     console.log("deleted group")
@@ -103,7 +103,7 @@ useEffect(()=>{
 
   const updateGroup2 = () => {
     console.log("tee")
-    Axios.put('http://localhost:8080/updateGroup2',{
+    Axios.put('https://sarthakpippaltodoapp.herokuapp.com/updateGroup2',{
       
     })};
   //   .then((res)=>{
