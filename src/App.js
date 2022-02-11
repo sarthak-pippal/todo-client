@@ -105,12 +105,13 @@ useEffect(()=>{
     console.log("tee")
     Axios.put('http://localhost:8080/updateGroup2',{
       
-    }).then((res)=>{
+    })};
+  //   .then((res)=>{
       
-      //console.log(res)
-    setGroupList([...taskList, {description: newDescription, completed: newCompleted, date: date}])
-    });
-  };
+  //     //console.log(res)
+  //   setGroupList([...groupList, {description: description, completed: completed, date: date}])
+  //   });
+  // };
 
   const getGroup2 = () => {
     //console.log("tee")
@@ -119,7 +120,7 @@ useEffect(()=>{
     }).then((res)=>{
       
       //console.log(res)
-    setGroupList([...taskList, {description: newDescription, completed: newCompleted, date: date}])
+    setGroupList([...groupList, {description: description, completed: completed, date: date}])
     });
   };
 
@@ -173,14 +174,16 @@ useEffect(()=>{
             //setNewDescription(e.target.value);
             setNewCompleted(e.target.value);
           }} />
+          <div>
           <button onClick={()=>{ updateTask(val._id) }} >Update</button>
           <button onClick={()=>{deleteTask(val._id)} } >Delete</button>
           <button onClick={()=>{urgentTask(val._id)} } >Urgent</button>
+          </div>
         </div>
           );
         })}
        
-        {
+        {/* {
         groupList.map((val, key)=>{
           return (
             <div key={key} className="group">
@@ -189,11 +192,9 @@ useEffect(()=>{
           );
         })
         
-      
-        
-        }
+        } */}
        <button onClick={()=>{ deleteGroup2() }} >Delete Group</button>
-       <button onClick={()=>{ getGroup2() }} >View Group</button> 
+       {/* <button onClick={()=>{ getGroup2() }} >View Group</button>  */}
        <button onClick={()=>{ updateGroup2() }} > All completed</button>  
       </div>
     
