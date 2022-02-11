@@ -11,7 +11,7 @@ function App() {
   const [newDescription,setNewDescription]=useState("");
   const [newCompleted,setNewCompleted]=useState("");
   const [taskList,setTaskList]=useState([]);
-  const [groupList,setGroupList]=useState([]);
+  //const [groupList,setGroupList]=useState([]);
 
 useEffect(()=>{
   console.log("useeffect called")
@@ -23,15 +23,15 @@ useEffect(()=>{
   })
 },[])
 
-useEffect(()=>{
-  //console.log("useeffect called")
-  Axios.get("http://localhost:8080/getGroup2").then((response)=>{
-  //console.log("useEffect",response)  
-  setGroupList(response.data)
-  //setGroupList(response.data)
-  //console.log(response.data)
-  })
-},[])
+// useEffect(()=>{
+//   //console.log("useeffect called")
+//   Axios.get("http://localhost:8080/getGroup2").then((response)=>{
+//   //console.log("useEffect",response)  
+//   setGroupList(response.data)
+//   //setGroupList(response.data)
+//   //console.log(response.data)
+//   })
+// },[])
 
   const submitTask = () => {
     //console.log("tee")
