@@ -113,16 +113,16 @@ useEffect(()=>{
   //   });
   // };
 
-  const getGroup2 = () => {
-    //console.log("tee")
-    Axios.get('http://localhost:8080/getGroup2',{
+  // const getGroup2 = () => {
+  //   //console.log("tee")
+  //   Axios.get('http://localhost:8080/getGroup2',{
       
-    }).then((res)=>{
+  //   }).then((res)=>{
       
-      //console.log(res)
-    setGroupList([...groupList, {description: description, completed: completed, date: date}])
-    });
-  };
+  //     //console.log(res)
+  //   setGroupList([...groupList, {description: description, completed: completed, date: date}])
+  //   });
+  // };
 
 
   return (
