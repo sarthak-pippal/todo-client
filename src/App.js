@@ -11,19 +11,31 @@ function App() {
   const [newDescription,setNewDescription]=useState("");
   const [newCompleted,setNewCompleted]=useState("");
   const [taskList,setTaskList]=useState([]);
+  const [groupList,setGroupList]=useState([]);
 
 useEffect(()=>{
   console.log("useeffect called")
-  Axios.get("https://sarthakpippaltodoapp.herokuapp.com/getTasks").then((response)=>{
+  Axios.get("http://localhost:8080/getTasks").then((response)=>{
   console.log("useEffect",response)  
   setTaskList(response.data)
+  //setGroupList(response.data)
   console.log(response.data)
+  })
+},[])
+
+useEffect(()=>{
+  //console.log("useeffect called")
+  Axios.get("http://localhost:8080/getGroup2").then((response)=>{
+  //console.log("useEffect",response)  
+  setGroupList(response.data)
+  //setGroupList(response.data)
+  //console.log(response.data)
   })
 },[])
 
   const submitTask = () => {
     //console.log("tee")
-    Axios.post("https://sarthakpippaltodoapp.herokuapp.com/tasks",{
+    Axios.post("http://localhost:8080/tasks",{
       
       description : description,
       completed : completed,
@@ -53,7 +65,7 @@ useEffect(()=>{
 
   const updateTask = (id) => {
     console.log(id)
-    Axios.put("https://sarthakpippaltodoapp.herokuapp.com/updateTasks",{
+    Axios.put("http://localhost:8080/updateTasks",{
       id: id,
       newDescription : newDescription,
       newCompleted : newCompleted,
@@ -68,18 +80,47 @@ useEffect(()=>{
 
   const deleteTask = (id) => {
     console.log("tee")
-    Axios.put('https://sarthakpippaltodoapp.herokuapp.com/deleteTasks',{
+    Axios.put('http://localhost:8080/deleteTasks',{
       id:id
-    });
-      
+    });    
   };
 
   const urgentTask = (id) => {
+    console.log("urgent calledd")
+    //console.log(id)
+    Axios.post('http://localhost:8080/createGroup2',{
+      id:id  
+    }); 
+  };
+
+  const deleteGroup2 = () => {
     console.log("tee")
-    Axios.put('https://sarthakpippaltodoapp.herokuapp.com/createGroup',{
-      id:id
-    });
+    Axios.put('http://localhost:8080/deleteGroup2',{
       
+    });  
+    console.log("deleted group")
+  };
+
+  const updateGroup2 = () => {
+    console.log("tee")
+    Axios.put('http://localhost:8080/updateGroup2',{
+      
+    }).then((res)=>{
+      
+      //console.log(res)
+    setGroupList([...taskList, {description: newDescription, completed: newCompleted, date: date}])
+    });
+  };
+
+  const getGroup2 = () => {
+    //console.log("tee")
+    Axios.get('http://localhost:8080/getGroup2',{
+      
+    }).then((res)=>{
+      
+      //console.log(res)
+    setGroupList([...taskList, {description: newDescription, completed: newCompleted, date: date}])
+    });
   };
 
 
@@ -116,7 +157,7 @@ useEffect(()=>{
         taskList.map((val, key)=>{
           return (
             <div key={key} className="task">
-          <h1>Task List : {val.description} | Description: {val.completed} | Date: {val.date}</h1>
+          <h1> Description : {val.description} | Status: {val.completed} | Date: {val.date}</h1>
           <input 
           type="text" 
           placeholder="new description"
@@ -138,7 +179,22 @@ useEffect(()=>{
         </div>
           );
         })}
-
+       
+        {
+        groupList.map((val, key)=>{
+          return (
+            <div key={key} className="group">
+          <h1> Description : {val.description} | Status: {val.completed} | Date: {val.date}</h1>
+        </div>
+          );
+        })
+        
+      
+        
+        }
+       <button onClick={()=>{ deleteGroup2() }} >Delete Group</button>
+       <button onClick={()=>{ getGroup2() }} >View Group</button> 
+       <button onClick={()=>{ updateGroup2() }} > All completed</button>  
       </div>
     
   );
