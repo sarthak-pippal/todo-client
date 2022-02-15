@@ -45,7 +45,7 @@ useEffect(()=>{
 //   })
 // },[])
 function refreshPage() {
-  window.location.reload(false);
+  window.location.reload(true);
 }
 
   const submitTask = () => {
@@ -182,7 +182,7 @@ function refreshPage() {
         }}
         />
     </div>
-        <button onClick={()=>{submitTask()}} >Submit</button>
+        <button onClick={()=>{submitTask(); refreshPage();}} >Submit</button>
          <h1>Task-List</h1>
         {
         taskList.map((val, key)=>{
