@@ -6,19 +6,31 @@ import Axios from "axios";
 function App() {
 
   const [description,setDescription]=useState("");
-  const [completed,setCompleted]=useState("");
+  const [completed,setCompleted]=useState("uncompleted");
   const [date,setDate]=useState("");
   const [newDescription,setNewDescription]=useState("");
-  const [newCompleted,setNewCompleted]=useState("");
+  const [newCompleted,setNewCompleted]=useState("uncompleted");
   const [taskList,setTaskList]=useState([]);
-  //const [groupList,setGroupList]=useState([]);
+  const [groupList,setGroupList]=useState([]);
 
 useEffect(()=>{
-  console.log("useeffect called")
+  //console.log("useeffect2 called")
+  // Axios.get("http://localhost:8080/getTasks").then((response)=>{
   Axios.get("https://sarthakpippaltodoapp.herokuapp.com/getTasks").then((response)=>{
-  console.log("useEffect",response)  
+  //console.log("useEffect",response)  
   setTaskList(response.data)
   //setGroupList(response.data)
+  //console.log(response.data)
+  })
+},[])
+
+useEffect(()=>{
+  console.log("useeffect2 called")
+  Axios.get("https://sarthakpippaltodoapp.herokuapp.com/getGroup2").then((response)=>{
+  //Axios.get("https://sarthakpippaltodoapp.herokuapp.com/getTasks").then((response)=>{
+  console.log("useEffect2",response)  
+  // setTaskList(response.data)
+  setGroupList(response.data)
   console.log(response.data)
   })
 },[])
@@ -32,6 +44,9 @@ useEffect(()=>{
 //   //console.log(response.data)
 //   })
 // },[])
+function refreshPage() {
+  window.location.reload();
+}
 
   const submitTask = () => {
     //console.log("tee")
@@ -45,7 +60,8 @@ useEffect(()=>{
       
       //console.log(res)
     setTaskList([...taskList, {description: description, completed: completed, date: date}])
-    });
+    //refreshPage()
+    })
   };
 
   // const updateTask = () => {
@@ -113,22 +129,22 @@ useEffect(()=>{
   //   });
   // };
 
-  // const getGroup2 = () => {
-  //   //console.log("tee")
-  //   Axios.get('http://localhost:8080/getGroup2',{
+  const getGroup2 = () => {
+    //console.log("tee")
+    Axios.get('https://sarthakpippaltodoapp.herokuapp.com/getGroup2',{
       
-  //   }).then((res)=>{
+    }).then((res)=>{
       
-  //     //console.log(res)
-  //   setGroupList([...groupList, {description: description, completed: completed, date: date}])
-  //   });
-  // };
+      //console.log(res)
+    setGroupList([...groupList, {description: description, completed: completed, date: date}])
+    });
+  };
 
 
   return (
     <div className="App">
       <h1>To-Do App</h1>
-
+        <div classname="Task-List">
         <label>Add Task: </label>
         <input 
         type= "text"
@@ -137,23 +153,36 @@ useEffect(()=>{
           setDescription(e.target.value);
         }}
         />
-        <label>Status : </label>
-        <input type= "text" 
+        {/* <label>Status : </label>
+        <input type= "boolean" 
         name="completed" 
         onChange={(e)=>{
           setCompleted(e.target.value);
         }}
-        />
-        <label>Date : </label>
+        /> */}
+        <label>Status : </label>
+        <select 
+        onChange={(e)=>{
+          const selectedval= e.target.value
+          setCompleted(selectedval);
+
+        }}
+        
+        >
+        
+          <option value="Uncompleted" >Uncompleted</option>
+          <option value="completed" >Completed</option>
+        </select>
+        <label>  Date : </label>
         <input type= "date" 
         name="date" 
         onChange={(e)=>{
           setDate(e.target.value);
         }}
         />
-
-        <button onClick={submitTask}>Submit</button>
-
+    </div>
+        <button onClick={()=>{submitTask(); refreshPage();}} >Submit</button>
+         <h1>Task-List</h1>
         {
         taskList.map((val, key)=>{
           return (
@@ -166,24 +195,36 @@ useEffect(()=>{
             setNewDescription(e.target.value);
             //setNewCompleted(e.target.value);
           }} />
+         <label>New Status : </label>
+         <select 
+        onChange={(e)=>{
+          const selectedval2= e.target.value
+          setNewCompleted(selectedval2);
 
-           <input 
+        }}
+        
+        >
+        
+          <option value="Uncompleted" >Uncompleted</option>
+          <option value="completed" >Completed</option>
+        </select> 
+           {/* <input 
           type="text" 
           placeholder="Completed or not"
           onChange={(e)=>{
             //setNewDescription(e.target.value);
             setNewCompleted(e.target.value);
-          }} />
+          }} /> */}
           <div>
-          <button onClick={()=>{ updateTask(val._id) }} >Update</button>
-          <button onClick={()=>{deleteTask(val._id)} } >Delete</button>
-          <button onClick={()=>{urgentTask(val._id)} } >Urgent</button>
+          <button onClick={()=>{updateTask(val._id);refreshPage(); }} >Update</button>
+          <button onClick={()=>{deleteTask(val._id); refreshPage();}} >Delete</button>
+          <button onClick={()=>{urgentTask(val._id); refreshPage();}}  >Urgent</button>
           </div>
         </div>
           );
         })}
-       
-        {/* {
+       <h1>Urgent Tasks</h1>
+        {
         groupList.map((val, key)=>{
           return (
             <div key={key} className="group">
@@ -191,11 +232,11 @@ useEffect(()=>{
         </div>
           );
         })
+        }
         
-        } */}
-       <button onClick={()=>{ deleteGroup2() }} >Delete Group</button>
+       <button onClick={()=>{ deleteGroup2();refreshPage(); }} >Delete Group</button>
        {/* <button onClick={()=>{ getGroup2() }} >View Group</button>  */}
-       <button onClick={()=>{ updateGroup2() }} > All completed</button>  
+       <button onClick={()=>{ updateGroup2() ;refreshPage();}} > All completed</button>  
       </div>
     
   );
