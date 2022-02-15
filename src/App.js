@@ -45,7 +45,7 @@ useEffect(()=>{
 //   })
 // },[])
 function refreshPage() {
-  window.location.reload();
+  window.location.reload(false);
 }
 
   const submitTask = () => {
@@ -86,6 +86,7 @@ function refreshPage() {
       newDescription : newDescription,
       newCompleted : newCompleted,
       //date: date,
+      //new
 
     }).then((res)=>{
       
