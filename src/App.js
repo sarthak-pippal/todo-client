@@ -145,7 +145,7 @@ function refreshPage() {
   return (
     <div className="App">
       <h1>To-Do App</h1>
-        <div classname="Task-List">
+        <div className="Task-List">
         <label>Add Task: </label>
         <input 
         type= "text"
@@ -182,7 +182,7 @@ function refreshPage() {
         }}
         />
     </div>
-        <button onClick={()=>{submitTask(); refreshPage();}} >Submit</button>
+        <button onClick={()=>{submitTask()}} >Submit</button>
          <h1>Task-List</h1>
         {
         taskList.map((val, key)=>{
