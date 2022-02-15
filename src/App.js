@@ -129,16 +129,16 @@ function refreshPage() {
   //   });
   // };
 
-  const getGroup2 = () => {
-    //console.log("tee")
-    Axios.get('https://sarthakpippaltodoapp.herokuapp.com/getGroup2',{
+  // const getGroup2 = () => {
+  //   //console.log("tee")
+  //   Axios.get('https://sarthakpippaltodoapp.herokuapp.com/getGroup2',{
       
-    }).then((res)=>{
+  //   }).then((res)=>{
       
-      //console.log(res)
-    setGroupList([...groupList, {description: description, completed: completed, date: date}])
-    });
-  };
+  //     //console.log(res)
+  //   setGroupList([...groupList, {description: description, completed: completed, date: date}])
+  //   });
+  // };
 
 
   return (
